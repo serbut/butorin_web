@@ -4,6 +4,19 @@
     height: 160px;
     border: 4px double black;
 }
+
+.askbutorin-main-question{
+    width: 750px;
+    margin-top: 10px;
+    height: 160px;
+    margin-bottom: 50px;
+}
+.askbutorin-answer{
+    width: 750px;
+    margin-top: 10px;
+    height: 160px;
+    border: 4px double black;
+}
 .askbutorin-avatar-block{
     margin-left: 10px;
     margin-top: 10px;
