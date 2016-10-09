@@ -59,6 +59,7 @@
                         </div>
                     </div>
                     <div class="col-md-10">
+                        <h3>Bootstrap позволяет оформить текст</h3>
                         <p>Кроме оформления блоков и структуры страницы, Bootstrap позволяет оформить текст: абзацы, цитаты, заголовки, подзаголовки, различные размеры текста, вставки кода и так далее. В большинстве случаев вам не придётся менять установленные по умолчанию параметры текста, ведь все отступы, заголовки, межстрочные расстояния и прочее прописаны с точностью как в аптеке.</p>
                         <span>Теги:</span>
                         <a href="">tag1</a>
@@ -118,12 +119,13 @@
                         </div>
                     </div>
                 </div>
-                <form action="" method="post" name="new-answer-form">
-                  <textarea name="text" cols="31″ rows="″ wrap="virtual"></textarea>
+                <form action="">
+                  <p><textarea maxlength="200" class="askbutorin-newanswer" name="comment" placeholder="Введите ваш ответ здесь"></textarea></p>
                   <p><input type="submit"></p>
                  </form>
             </div>
        <div class="col-md-4">
+           <div class="askbutorin-leftblock">
                 <h2>Популярные теги</h2>
                    <a class="askbutorin-tags" href="">Python</a>
                    <a class="askbutorin-tags" href="">C++</a>
@@ -141,10 +143,11 @@
                    <a class="askbutorin-best-users" href="">Вася</a><br>
                    <a class="askbutorin-best-users" href="">Петя123</a><br>
                    <a class="askbutorin-best-users" href="">Федя777</a><br>
+           </div>
         </div>
       </div>
 
-    </div>
+    </div><!-- /.container -->
 
 
     <script src="static/js/jquery.min.js"></script>

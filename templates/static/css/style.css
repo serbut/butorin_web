@@ -1,7 +1,7 @@
 .askbutorin-question{
     width: 750px;
     margin-top: 10px;
-    height: 160px;
+    height: 200px;
     border: 4px double black;
 }
 
@@ -17,9 +17,14 @@
     height: 160px;
     border: 4px double black;
 }
+.askbutorin-newanswer{
+    width: 750px;
+    margin-top: 10px;
+    height: 100px;
+}
 .askbutorin-avatar-block{
     margin-left: 10px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 .askbutorin-search{
     margin-left: 50px;
@@ -35,7 +40,6 @@
     position: absolute;
 }
 .askbutorin-authorised{
-
     padding-top: 10px;
     padding-bottom: 10px;
     right: 50px;
@@ -43,7 +47,6 @@
 }
 .user-avatar{
     margin-right:50px;
-
 }
 .user-menu{
     margin-right:120px;
@@ -82,4 +85,10 @@
     height: 10px;
     width: 5px;
     border: 1px black;
+}
+.askbutorin-leftblock{
+    margin-left: 20px;
+}
+.askbutorin-newquestion-block {
+    margin-top: 10px;
 }
