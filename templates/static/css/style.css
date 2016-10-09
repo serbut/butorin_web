@@ -92,3 +92,7 @@
 .askbutorin-newquestion-block {
     margin-top: 10px;
 }
+.askbutorin-field-names p{
+    font: 14pt/10pt sans-serif;
+    padding-top: 11px;
+}
