@@ -99,3 +99,11 @@
 .askbutorin-submit-button{
     margin-top: 10px;
 }
+.askbutorin-wrong_password-msg{
+    display: none;
+    color: red;
+}
+.askbutorin-error_login-msg{
+    display: none;
+    color: red;
+}
