@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>The best site</title>
+    <link href="static/css/style.css" rel="stylesheet">
+    <link href="static/css/starter-template.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">AskButorin</a>
+            <div class="askbutorin-authorised">
+                <img class="user-avatar" src="static/images/people-q-c-60-60-9.jpg" />
+                <div class="user-menu">
+                    <p >Nickname</p>
+                    <a href="">Настройки</a>
+                    <a href="">Выйти</a>
+                </div>
+            </div>
+            <div class="askbutorin-not-authorised">
+                <a href="">Войти</a>
+                <a href="">Зарегистрироваться</a>
+            </div>
+        </div>
+        <div class="askbutorin-search">
+            <form>
+                <p><input type="search" placeholder="Поиск по сайту">
+                <input type="submit" value="Найти"></p>
+            </form>
+        </div>
+
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="askbutorin-main-block">
+        <div class="col-md-8">
+            <div class="askbutorin-user-profile">
+                <form action="">
+                    <h2>Настройки профиля</h2>
+                    <div class="col-md-5">
+                        <div class="askbutorin-field-names">
+                            <p>Логин</p>
+                            <p>E-mail</p>
+                            <p>Никнейм</p>
+                            <p>Аватар</p>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <p><input class="askbutorin-login-field" maxlength="50" size="30" value="admin"></p>
+                        <p><input class="askbutorin-email-field" maxlength="50" size="30" value="bestadmin@mail.ru"></p>
+                        <p><input class="askbutorin-nickname-field" maxlength="50" size="30" value="Nickname"></p>
+                        <p><img class="user-avatar" src="static/images/people-q-c-60-60-9.jpg"/></p>
+                        <p><input class="askbutorin-load-avatar-field" type="file" name="photo"></p>
+                    </div>
+                    <p><input class="askbutorin-submit-button" type="submit" value="Сохранить"></p>
+                </form>
+            </div>
+
+        </div>
+       <div class="col-md-4">
+           <div class="askbutorin-leftblock">
+                <h2>Популярные теги</h2>
+                   <a class="askbutorin-tags" href="">Python</a>
+                   <a class="askbutorin-tags" href="">C++</a>
+                   <a class="askbutorin-tags" href="">macOS</a>
+                   <a class="askbutorin-tags" href="">MySQL</a>
+                   <a class="askbutorin-tags" href="">MongoDB</a>
+                   <a class="askbutorin-tags" href="">Django</a>
+                   <a class="askbutorin-tags" href="">linux</a>
+                   <a class="askbutorin-tags" href="">Mail.ru</a>
+                   <a class="askbutorin-tags" href="">my.com</a>
+                   <a class="askbutorin-tags" href="">techopark</a>
+                   <a class="askbutorin-tags" href="">C++</a>
+                   <a class="askbutorin-tags" href="">macOS</a>
+                <h2>Лучшие пользователи</h2>
+                   <a class="askbutorin-best-users" href="">Вася</a><br>
+                   <a class="askbutorin-best-users" href="">Петя123</a><br>
+                   <a class="askbutorin-best-users" href="">Федя777</a><br>
+           </div>
+        </div>
+      </div>
+
+    </div><!-- /.container -->
+
+
+    <script src="static/js/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="static/js/jquery.min.js"><\/script>')</script>
+    <script src="static/js/bootstrap.min.js"></script>
+
+  </body>
+</html>
