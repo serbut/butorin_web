@@ -71,6 +71,8 @@
     font-size: large;
 }
 .like-button{
+    margin-bottom: 5px;
+    margin-left: -5px;
     height: 15px;
     width: 15px;
 }
@@ -106,4 +108,8 @@
 .askbutorin-error_login-msg{
     display: none;
     color: red;
+}
+.btn{
+    height: 30px;
+    width: 30px;
 }
