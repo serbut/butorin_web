@@ -11,104 +11,128 @@
     height: 160px;
     margin-bottom: 50px;
 }
+
 .askbutorin-answer{
     width: 750px;
     margin-top: 10px;
     height: 160px;
     border: 4px double black;
 }
+
 .askbutorin-newanswer{
     width: 750px;
     margin-top: 10px;
     height: 100px;
 }
+
 .askbutorin-avatar-block{
     margin-left: 10px;
     margin-top: 20px;
 }
+
 .askbutorin-search{
     margin-left: 50px;
     padding-top: 26px;
 }
+
 .navbar-brand{
     margin-top: 16px;
 }
+
 .askbutorin-not-authorised{
     visibility: hidden;
     padding-top: 27px;
     right: 170px;
     position: absolute;
 }
+
 .askbutorin-authorised{
     padding-top: 10px;
     padding-bottom: 10px;
     right: 50px;
     position: absolute;
 }
+
 .user-avatar{
     margin-right:50px;
 }
+
 .user-menu{
     margin-right:120px;
     float: right;
 }
+
 .avatar{
     border-radius: 30%;
 }
+
 .user-menu p{
     color: #ebebeb;
 }
+
 .navbar {
     height: 80px;
 }
+
 .askbutorin-tags{
     color: #9f2419;
     margin-left: 7px;
     font-size: medium;
     font-weight: 500;
 }
+
 .askbutorin-best-users{
     font-size: large;
 }
+
 .like-button{
     margin-bottom: 5px;
     margin-left: -5px;
     height: 15px;
     width: 15px;
 }
+
 .pagination{
-    width: 500px;
     padding-bottom: 50px
 }
+
 .btn-group{
     right: 13px;
 }
+
 .likes-count{
     height: 10px;
     width: 5px;
     border: 1px black;
 }
+
 .askbutorin-leftblock{
     margin-left: 20px;
 }
+
 .askbutorin-newquestion-block {
     margin-top: 10px;
 }
+
 .askbutorin-field-names p{
     font: 14pt/10pt sans-serif;
     padding-top: 11px;
 }
+
 .askbutorin-submit-button{
     margin-top: 10px;
 }
+
 .askbutorin-wrong_password-msg{
     display: none;
     color: red;
 }
+
 .askbutorin-error_login-msg{
     display: none;
     color: red;
 }
+
 .btn{
     height: 30px;
     width: 30px;
