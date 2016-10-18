@@ -1,21 +1,22 @@
 .askbutorin-question{
     width: 750px;
-    margin-top: 10px;
-    height: 200px;
-    border: 4px double black;
+    margin-bottom: 20px;
+    padding: 20px;
+    padding-top: 0px;
+    outline: 2px solid #000;
 }
 
 .askbutorin-main-question{
     width: 750px;
-    margin-top: 10px;
-    height: 160px;
-    margin-bottom: 50px;
+    padding: 20px;
+    padding-top: 0px;
+    margin-bottom: 30px;
 }
 
 .askbutorin-answer{
     width: 750px;
-    margin-top: 10px;
-    height: 160px;
+    padding: 20px;
+    margin-bottom: 20px;
     border: 4px double black;
 }
 
@@ -115,7 +116,7 @@
 }
 
 .askbutorin-field-names p{
-    font: 14pt/10pt sans-serif;
+    <!--font: 14pt/10pt sans-serif;-->
     padding-top: 11px;
 }
 
@@ -128,7 +129,32 @@
     color: red;
 }
 
+.askbutorin-wrong_login-msg{
+    display: none;
+    color: red;
+}
+
 .askbutorin-error_login-msg{
+    display: none;
+    color: red;
+}
+
+.askbutorin-error_nickname-msg{
+    display: none;
+    color: red;
+}
+
+.askbutorin-error_password-msg{
+    display: none;
+    color: red;
+}
+
+.askbutorin-error_email-msg{
+    display: none;
+    color: red;
+}
+
+.askbutorin-wrong_email-msg{
     display: none;
     color: red;
 }
@@ -136,4 +162,28 @@
 .btn{
     height: 30px;
     width: 30px;
+}
+
+.askbutorin-newquestion-title{
+    width: 450px;
+}
+
+.askbutorin-newquestion-tags{
+    width: 450px;
+}
+
+.askbutorin-newquestion-text{
+    width: 450px;
+}
+
+.askbutorin-login .row{
+    margin-top: 10px;
+}
+
+.askbutorin-registration .row{
+    margin-top: 10px;
+}
+
+.askbutorin-newquestion .row{
+    margin-top: 10px;
 }

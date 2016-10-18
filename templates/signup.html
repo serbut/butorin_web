@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>The best site</title>
+    <title>Askbutorin</title>
     <link href="static/css/style.css" rel="stylesheet">
     <link href="static/css/starter-template.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
@@ -51,24 +51,58 @@
              <div class="askbutorin-registration">
                 <form action="">
                     <h2>Регистрация</h2>
-                    <p class="askbutorin-error_login-msg">Извините, пользователь с таким логином уже существует</p>
-                    <div class="col-md-5">
-                        <div class="askbutorin-field-names">
-                            <p>Логин</p>
-                            <p>E-mail</p>
-                            <p>Никнейм</p>
-                            <p>Пароль</p>
-                            <p>Подтверждение пароля</p>
-                            <p>Аватар</p>
+                    <div class="row">
+                        <p class="askbutorin-error_login-msg">Извините, пользователь с таким логином уже существует</p>
+                        <div class="col-md-5">
+                            <span>Логин</span>
+                        </div>
+                        <div class="col-md-7">
+                            <span><input class="askbutorin-login-field" maxlength="50" size="30" placeholder="Введите логин"></span>
                         </div>
                     </div>
-                    <div class="col-md-7">
-                        <p><input class="askbutorin-login-field" maxlength="50" size="30" placeholder="Введите логин"></p>
-                        <p><input class="askbutorin-email-field" maxlength="50" size="30" placeholder="Введите почтовый адрес"></p>
-                        <p><input class="askbutorin-nickname-field" maxlength="50" size="30" placeholder="Введите ник"></p>
-                        <p><input class="askbutorin-password-field" type="password" maxlength="50" size="30" placeholder="Введите пароль"></p>
-                        <p><input class="askbutorin-password-field" type="password" maxlength="50" size="30" placeholder="Подтвердите пароль"></p>
-                        <p><input class="askbutorin-load-avatar-field" type="file" name="photo" >
+                    <div class="row">
+                        <p class="askbutorin-wrong_email-msg">Извините, введен некорректный e-mail</p>
+                        <p class="askbutorin-error_email-msg">Извините, пользователь с таким e-mail уже зарегистрирован</p>
+                        <div class="col-md-5">
+                            <span>E-mail</span>
+                        </div>
+                        <div class="col-md-7">
+                            <span><input class="askbutorin-email-field" maxlength="50" size="30" placeholder="Введите почтовый адрес"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="askbutorin-error_nickname-msg">Извините, пользователь с таким никнеймом уже существует</p>
+                        <div class="col-md-5">
+                            <span>Никнейм</span>
+                        </div>
+                        <div class="col-md-7">
+                            <span><input class="askbutorin-nickname-field" maxlength="50" size="30" placeholder="Введите ник"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="askbutorin-error_password-msg">Извините, введенные пароли не совпадают</p>
+                        <div class="col-md-5">
+                            <span>Пароль</span>
+                        </div>
+                        <div class="col-md-7">
+                            <span><input class="askbutorin-password-field" type="password" maxlength="50" size="30" placeholder="Введите пароль"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <span>Подтверждение пароля</span>
+                        </div>
+                        <div class="col-md-7">
+                            <span><input class="askbutorin-password-field" type="password" maxlength="50" size="30" placeholder="Подтвердите пароль"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <span>Аватар</span>
+                        </div>
+                        <div class="col-md-7">
+                            <span><input class="askbutorin-load-avatar-field" type="file" name="photo"></span>
+                        </div>
                     </div>
                     <p><input class="askbutorin-submit-button" type="submit" value="Зарегистрироваться"></p>
                 </form>

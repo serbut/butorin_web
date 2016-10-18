@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>The best site</title>
+    <title>Askbutorin</title>
     <link href="static/css/style.css" rel="stylesheet">
     <link href="static/css/starter-template.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
@@ -51,16 +51,23 @@
              <div class="askbutorin-login">
                 <form action="">
                     <h2>Вход</h2>
-                    <p class="askbutorin-wrong_password-msg">Неправильный пароль</p>
-                    <div class="col-md-2">
-                        <div class="askbutorin-field-names">
-                            <p>Логин</p>
-                            <p>Пароль</p>
+                    <div class="row">
+                        <p class="askbutorin-wrong_login-msg">Пользователь с таким логином не найден</p>
+                        <div class="col-md-3">
+                            <span>Логин</span>
+                        </div>
+                        <div class="col-md-9">
+                            <span><input class="askbutorin-login-field" maxlength="50" size="20" placeholder="Введите логин"></span>
                         </div>
                     </div>
-                    <div class="col-md-10">
-                        <p><input class="askbutorin-login-field" maxlength="50" size="20" placeholder="Введите логин"></p>
-                        <p><input class="askbutorin-password-field" type="password" maxlength="50" size="20" placeholder="Введите пароль"></p>
+                    <div class="row">
+                        <p class="askbutorin-wrong_password-msg">Неправильный пароль</p>
+                        <div class="col-md-3">
+                            <span>Пароль</span>
+                        </div>
+                        <div class="col-md-9">
+                            <span><input class="askbutorin-password-field" type="password" maxlength="50" size="20" placeholder="Введите пароль"></span>
+                        </div>
                     </div>
                     <p><input class="askbutorin-submit-button" type="submit" value="Войти"></p>
                 </form>
