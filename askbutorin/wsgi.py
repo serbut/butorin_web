@@ -14,12 +14,3 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "askbutorin.settings")
 
 application = get_wsgi_application()
-
-def wsgi_application(environ, start_response):
-    status = '200 OK'
-    headers = [
-        ('Content-Type', 'text/plain')
-    ]
-    body = 'Hello, world!'
-    start_response(status, headers)
-    return [ body ]

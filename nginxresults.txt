@@ -1,0 +1,35 @@
+Server Software:        nginx/1.8.1
+Server Hostname:        askbutorin.com
+Server Port:            80
+
+Document Path:          /index.html
+Document Length:        42648 bytes
+
+Concurrency Level:      1
+Time taken for tests:   3.489 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      428830000 bytes
+HTML transferred:       426480000 bytes
+Requests per second:    2866.19 [#/sec] (mean)
+Time per request:       0.349 [ms] (mean)
+Time per request:       0.349 [ms] (mean, across all concurrent requests)
+Transfer rate:          120030.21 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       1
+Processing:     0    0   1.5      0     153
+Waiting:        0    0   0.0      0       1
+Total:          0    0   1.5      0     153
+
+Percentage of the requests served within a certain time (ms)
+  50%      0
+  66%      0
+  75%      0
+  80%      0
+  90%      0
+  95%      0
+  98%      0
+  99%      0
+ 100%    153 (longest request)
