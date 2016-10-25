@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Django get and post params</title>
 </head>
 <body>
 
@@ -11,16 +11,18 @@
         <input type="text" name="name" value="">
         <input type="submit" value="Submit" >
     </form>
+    <h1>Django get and post params</h1>
+    <p>POST params</p>
+    {% for key, param in request.POST.items %}
+        {{key}}: {{param}} </br>
+    {%endfor%}
 
     <p>GET params</p>
     {% for key, param in request.GET.items %}
         {{key}}: {{param}} </br>
     {%endfor%}
 
-    <p>POST params</p>
-    {% for key, param in request.POST.items %}
-        {{key}}: {{param}} </br>
-    {%endfor%}
+
 
 </body>
 </html>
