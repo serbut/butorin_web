@@ -9,10 +9,10 @@
     <meta name="author" content="">
 
     <title>Askbutorin</title>
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/starter-template.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/starter-template.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
   </head>
 
   <body>
@@ -20,18 +20,18 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">AskButorin</a>
+          <a class="navbar-brand" href="/">AskButorin</a>
             <div class="askbutorin-authorised">
-                <img class="user-avatar" src="images/people-q-c-60-60-9.jpg" />
+                <img class="user-avatar" src="/images/people-q-c-60-60-9.jpg" />
                 <div class="user-menu">
                     <p >Nickname</p>
-                    <a href="">Настройки</a>
+                    <a href="{% url "settings" %}">Настройки</a>
                     <a href="">Выйти</a>
                 </div>
             </div>
             <div class="askbutorin-not-authorised">
-                <a href="">Войти</a>
-                <a href="">Зарегистрироваться</a>
+                <a href="{% url "login" %}">Войти</a>
+                <a href="{% url "signup" %}">Зарегистрироваться</a>
             </div>
         </div>
         <div class="askbutorin-search">
@@ -49,6 +49,7 @@
       <div class="askbutorin-main-block">
         <div class="col-md-8">
 
+            {% block content %} {% endblock %}
 
         </div>
        <div class="col-md-4">
@@ -77,9 +78,9 @@
     </div><!-- /.container -->
 
 
-    <script src="static/js/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="static/js/jquery.min.js"><\/script>')</script>
-    <script src="static/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
+    <script src="/js/bootstrap.min.js"></script>
 
   </body>
 </html>

@@ -20,4 +20,13 @@ from ask_app import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^dj_get_params/', views.get_params),
+    url(r'^$', views.index, name='index'),
+    url(r'^(?P<page>[0-9]+)/$', views.index),
+    url(r'^hot/?$', views.hot, name='hot'),
+    url(r'^tag/(?P<tag>.+)/?$', views.tag, name='tag'),
+    url(r'^ask/$', views.ask, name='ask'),
+    url(r'^login/$', views.login, name='login'),
+    url(r'^signup/$', views.signup, name='signup'),
+    url(r'^question/(?P<id>\d+)/?$', views.question, name='question'),
+    url(r'^settings/', views.settings, name='settings'),
 ]
