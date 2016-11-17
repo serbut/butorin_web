@@ -3,24 +3,25 @@
 {% block content %}
                 <div class="askbutorin-main-question">
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="askbutorin-avatar-block">
-                                <img class="avatar" src="/images/people-q-c-60-60-10.jpg"/>
-                                <p> Nickname </p>
+                                <img class="avatar" src="/images/avatars/{{ question.author }}.png"/>
+                                <p> {{ question.author }} </p>
                                 <div class="btn-group" role="group" aria-label="...">
                                  <span><button type="button" class="btn btn-default"><img class="like-button" src="/images/like.png"></button></span>
-                                     <span>{{ rating }}</span>
+                                     <span>{{ question.rating }}</span>
                                  <span><button type="button" class="btn btn-default"><img class="like-button" src="/images/dislike.png"></button></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-10">
-                            <h3>{{ title }}</h3>
-                            <p>{{ text }}</p>
+                        <div class="col-md-9">
+                            <h3>{{ question.title }}</h3>
+                            <p>{{ question.text }}</p>
                             <span>Теги:</span>
-                            {% for tag in tags %}
-                                <a href="{% url 'tag' tag %}">{{ tag }}</a>
-                            {% endfor %}
+
+
+
+                            <p> {{ question.date }} </p>
                         </div>
                     </div>
                 </div>
@@ -28,10 +29,10 @@
                         {% for item in answers %}
                         <div class="askbutorin-answer">
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <div class="askbutorin-avatar-block">
-                                        <img class="avatar" src="/images/people-q-c-60-60-10.jpg"/>
-                                        <p> Nickname </p>
+                                        <img class="avatar" src="/images/avatars/{{ item.user }}.png"/>
+                                        <p> {{ item.user }} </p>
                                         <div class="btn-group" role="group" aria-label="...">
                                           <span><button type="button" class="btn btn-default"><img class="like-button" src="/images/like.png"></button></span>
                                                 <span>{{ item.rating }}</span>
@@ -40,9 +41,10 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <p>{{ item.text }}</p>
                                      <p><input type="checkbox" name="correct" value=""> Верный ответ</p>
+                                    <p> {{ item.date }} </p>
                                 </div>
                             </div>
                         </div>

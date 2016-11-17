@@ -13,10 +13,10 @@
     {% for item in questions %}
             <div class="askbutorin-question">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="askbutorin-avatar-block">
-                            <img class="avatar" src="/images/people-q-c-60-60-10.jpg"/>
-                            <p> Nickname </p>
+                            <img class="avatar" src="/images/avatars/{{ item.author }}.png"/>
+                            <p> {{ item.author }} </p>
                             <div class="btn-group" role="group" aria-label="...">
                               <span><button type="button" class="btn btn-default"><img class="like-button" src="/images/like.png"></button></span>
                                 <span>{{ item.rating }}</span>
@@ -26,14 +26,15 @@
                         </div>
                     </div>
 
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         <a href="{% url 'question' item.id %}"><h3>{{ item.title }}</h3></a>
                         <p>{{ item.text }}</p>
                         <a href="{% url 'question' item.id %}">Ответы({{ item.answers }})</a>
                         <span>Теги:</span>
-                        {% for tag in item.tags %}
-                            <a href="{% url 'tag' tag %}">{{ tag }}</a>
-                        {% endfor %}
+                        <!-- { % for tag in item.tags %}
+                            <a href="{ % url 'tag' tag %}">{ { tag }}</a>
+                        { % endfor %} -->
+                        <p> {{ item.date }} </p>
                     </div>
                 </div>
             </div>

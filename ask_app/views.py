@@ -1,20 +1,23 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from random import randint, sample
+from ask_app.models import QuestionManager, Question, Answer, Tag
 
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
-questions = []
+#questions = []
 
-for i in range(1, 150):
-    questions.append({
-        'id': i,
-        'title': 'title ' + str(i),
-        'text': 'text ' + str(i),
-        'answers': randint(0, 25),
-        'rating': randint(-9, 9),
-        'tags': sample(['php', 'c++', 'django', 'python', 'mailru'], randint(1, 3)),
-    })
+#for i in range(1, 50):
+#    questions.append({
+#        'id': i,
+#        'title': 'title ' + str(i),
+#        'text': 'text ' + str(i),
+#        'answers': randint(0, 25),
+#        'rating': randint(-9, 9),
+#        'tags': sample(['php', 'c++', 'django', 'python', 'mailru'], randint(1, 3)),
+#    })
+
+
 
 
 def paginate(objects, request):
@@ -30,18 +33,17 @@ def paginate(objects, request):
         result = p.page(1)
     return result
 
-
-def get_params(request):
-        return render(request, 'get_params.html', {})
-
 def index(request):
+    questions = Question.objects.new()
     pagination = paginate(questions, request)
     return render(request, 'index.html', {
         'questions': pagination,
         'type': 'all',
     })
 
+
 def hot(request):
+    questions = Question.objects.hot()
     pagination = paginate(questions, request)
     return render(request, 'index.html', {
         'questions': pagination,
@@ -49,6 +51,8 @@ def hot(request):
     })
 
 def tag(request, tag):
+    ################
+    questions = Question.objects.new()
     questions_tag = []
     for question in questions:
         if str(tag) in question.get('tags'):
@@ -69,23 +73,16 @@ def login(request):
 
 def question(request, id):
     id = int(id)
-    answ = []
-    for i in range(1, questions[id - 1].get('answers') + 1):
-        answ.append({
-            'text': 'answer ' + str(i) + ' for question ' + str(id),
-            'rating': randint(-9, 9),
-        })
-    pagination = paginate(answ, request)
-    q = {
-        'id': id,
-        'title': questions[id - 1].get('title'),
-        'text': questions[id - 1].get('text'),
-        'rating': questions[id - 1].get('rating'),
-        'tags': questions[id - 1].get('tags'),
-        'answers': pagination,
-    }
+    try:
+        q = Question.objects.single(id)
+    except Question.DoesNotExist:
+        raise Http404
 
-    return render(request, 'question.html', q)
+    pagination = paginate(q.answers, request)
+    return render(request, 'question.html', {
+        'question': q,
+        'answers': pagination,
+        })
 
 def signup(request):
     return render(request, 'signup.html', {})

@@ -27,7 +27,7 @@
 }
 
 .askbutorin-avatar-block{
-    margin-left: 10px;
+    margin-left: 20px;
     margin-top: 20px;
 }
 
@@ -124,39 +124,37 @@
     margin-top: 10px;
 }
 
+.askbutorin-error-messages{
+        color: red;
+        margin-left: 15px;
+}
+
 .askbutorin-wrong_password-msg{
     display: none;
-    color: red;
 }
 
 .askbutorin-wrong_login-msg{
     display: none;
-    color: red;
 }
 
 .askbutorin-error_login-msg{
     display: none;
-    color: red;
 }
 
 .askbutorin-error_nickname-msg{
     display: none;
-    color: red;
 }
 
 .askbutorin-error_password-msg{
     display: none;
-    color: red;
 }
 
 .askbutorin-error_email-msg{
     display: none;
-    color: red;
 }
 
 .askbutorin-wrong_email-msg{
     display: none;
-    color: red;
 }
 
 .btn{
@@ -186,4 +184,8 @@
 
 .askbutorin-newquestion .row{
     margin-top: 10px;
+}
+
+.ask-button{
+    margin-left: 50px;
 }
