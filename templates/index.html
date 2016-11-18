@@ -31,9 +31,9 @@
                         <p>{{ item.text }}</p>
                         <a href="{% url 'question' item.id %}">Ответы({{ item.answers }})</a>
                         <span>Теги:</span>
-                        <!-- { % for tag in item.tags %}
-                            <a href="{ % url 'tag' tag %}">{ { tag }}</a>
-                        { % endfor %} -->
+                        {%for tag in item.tags.all %}
+                            <a href="{% url 'tag' tag %}">{{ tag }}</a>
+                        {% endfor %}
                         <p> {{ item.date }} </p>
                     </div>
                 </div>

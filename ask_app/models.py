@@ -4,32 +4,35 @@ from __future__ import unicode_literals
 import datetime
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import Count
-
-
-
-class QuestionQuerySet(models.QuerySet):
-    def tags(self):
-        return self.prefetch_related('tags')
-
-    def answers_count(self):
-        return self.annotate(answers=Count('answer__id'))
+from django.db.models import Count, Sum
 
 
 class QuestionManager(models.Manager):
-    def best(self):
-        #============to fix==============
-        return self.order_by('-date')
-
-    def new(self):
-        return QuestionQuerySet(self.model, using=self._db).tags().answers_count().order_by('-date')
-
-    def single(self, id):
-        q = self.get(pk=id)
-        q.answers = Answer.objects.filter(question_id=id)
-        #q.tags = Tag.objects.filter(question_id=id)
+    def quest_likes(self):
+        q = self.annotate(answers=Count('answer__id', distinct=True))
+        q = q.annotate(rating=Sum('questionlike__value'))
         return q
 
+    def best(self):
+        return self.quest_likes().order_by('-rating')
+
+    def with_tag(self, tag):
+        return self.quest_likes().filter(tags=tag).order_by('-date')
+
+    def new(self):
+        return self.quest_likes().order_by('-date')
+
+    def single(self, id):
+        q = self.quest_likes().get(pk=id)
+        q.answers = Answer.objects.filter(question_id=id)
+        q.answers.rating = q.answers.annotate(rating=Sum('answerlike__value'))
+        return q
+
+
+class AnswerManager(models.Manager):
+    def ans_likes(self):
+        a = self.annotate(rating=Sum('answerlike__value'))
+        return a
 
 
 class Tag(models.Model):
@@ -46,11 +49,11 @@ class Tag(models.Model):
 class Question(models.Model):
     title = models.CharField(max_length=255, verbose_name=u'Заголовок')
     text = models.TextField(verbose_name=u'Текст')
-    author = models.ForeignKey(User)
-    date = models.DateTimeField(default=datetime.datetime.now)
-    tags = models.ManyToManyField(Tag)
-    #rating = models.IntegerField(default=0)
+    author = models.ForeignKey(User, verbose_name=u'Автор')
+    date = models.DateTimeField(default=datetime.datetime.now, verbose_name=u'Дата и время')
+    tags = models.ManyToManyField(Tag, verbose_name=u'Тэги')
     objects = QuestionManager()
+
     class Meta:
         verbose_name = u'Вопрос'
         verbose_name_plural = u'Вопросы'
@@ -59,13 +62,13 @@ class Question(models.Model):
         return self.title
 
 
-
 class Answer(models.Model):
     text = models.TextField(verbose_name=u'Текст')
-    question = models.ForeignKey(Question)
-    user = models.ForeignKey(User)
-    date = models.DateTimeField(default=datetime.datetime.now)
+    question = models.ForeignKey(Question, verbose_name=u'Вопрос')
+    user = models.ForeignKey(User, verbose_name=u'Пользователь')
+    date = models.DateTimeField(default=datetime.datetime.now, verbose_name=u'Дата и время')
     correct = models.BooleanField(default=False)
+
     class Meta:
         verbose_name = u'Ответ'
         verbose_name_plural = u'Ответы'
@@ -75,9 +78,8 @@ class Answer(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User)
-    username = User.objects.first().username
-    avatar = models.ImageField(upload_to='static/images/avatars')
+    user = models.OneToOneField(User, verbose_name=u'Пользователь')
+    avatar = models.ImageField(upload_to='static/images/avatars', verbose_name=u'Аватар')
 
     class Meta:
         verbose_name = u'Профиль'
@@ -85,7 +87,6 @@ class Profile(models.Model):
 
     def __unicode__(self):
         return str(self.user_id)
-
 
 
 class QuestionLike(models.Model):
@@ -98,3 +99,4 @@ class AnswerLike(models.Model):
     answer = models.ForeignKey(Answer)
     author = models.ForeignKey(User)
     value = models.SmallIntegerField(default=0)
+

@@ -33,4 +33,4 @@ class Command(BaseCommand):
                 answer.user = choice(users)
                 answer.question = question
                 answer.save()
-                self.stdout.write('[%d] ans[%d]' % (question.id, answer.id))
+                self.stdout.write('answers for question [%d] created' % question.id)

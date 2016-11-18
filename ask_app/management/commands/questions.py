@@ -2,9 +2,9 @@
 from django.core.management.base import BaseCommand, CommandError
 from random import choice, randint
 from faker import Factory
-
 from django.contrib.auth.models import User
 from ask_app.models import Question
+
 
 class Command(BaseCommand):
     help = 'Generate questions'
@@ -29,4 +29,4 @@ class Command(BaseCommand):
                     )
             q.author = choice(users)
             q.save()
-            self.stdout.write('added question [%d]' % (q.id))
+            self.stdout.write('created question [%d]' % q.id)

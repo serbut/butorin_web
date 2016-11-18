@@ -46,4 +46,4 @@ class Command(BaseCommand):
             up.avatar.save('%s.png' % u.username, File(open(content[0])), save=True)
             up.save()
 
-            self.stdout.write('added user %s' % u.username)
+            self.stdout.write('created user %s' % u.username)
