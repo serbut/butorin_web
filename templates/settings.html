@@ -1,28 +1,49 @@
 {% extends "base.html" %}
 
 {% block content %}
-            <div class="askbutorin-user-profile">
-                <form action="">
-                    <h2>Настройки профиля</h2>
-                    <div class="col-md-5">
-                        <div class="askbutorin-field-names">
-                            <p>Логин</p>
-                            <p>E-mail</p>
-                            <p>Никнейм</p>
-                            <p>Аватар</p>
-                        </div>
-                    </div>
-                    <div class="col-md-7">
-                        <p><input class="askbutorin-login-field" maxlength="50" size="30" value="admin"></p>
-                        <p><input class="askbutorin-email-field" maxlength="50" size="30" value="bestadmin@mail.ru"></p>
-                        <p><input class="askbutorin-nickname-field" maxlength="50" size="30" value="Nickname"></p>
-                        <p><img class="user-avatar" src="/images/people-q-c-60-60-9.jpg"/></p>
-                        <p><input class="askbutorin-load-avatar-field" type="file" name="photo"></p>
-                    </div>
-                    <p><input class="askbutorin-submit-button" type="submit" value="Сохранить"></p>
-                </form>
+    {% if type == 'change_password' %}
+        <h2><a href="{% url "settings" %}">Редактирование профиля</a> Смена пароля</h2>
+    {% endif %}
+    {% if type == 'profile' %}
+            <h2>Редактирование профиля <a href="{% url 'change_password' %}">Смена пароля</a></h2>
+    {% endif %}
+    {% for error in form.non_field_errors %}
+        <div class="ask-signup-form-error">
+            <div class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                {{ error }}
             </div>
-
         </div>
-
+    {% endfor %}
+    <div class="askbutorin-user-profile">
+        <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if type == 'profile' %}
+            <div class="form-group">
+                <label for="username" class="col-md-3 control-label">Логин</label>
+                <div class="col-md-8">
+                    {{ user.username }}
+                </div>
+            </div>
+            {% endif %}
+            {%for field in form %}
+            <div class="form-group{% if field.errors %} has-error {% endif %}">
+                <label for="{{ field.name }}" class="col-md-3 control-label">{{ field.label }}</label>
+                <div class="col-md-8">
+                    {{ field }}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-6">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}

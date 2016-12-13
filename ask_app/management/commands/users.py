@@ -38,12 +38,12 @@ class Command(BaseCommand):
             u.is_superuser = False
             u.save()
 
-            up = Profile()
-            up.user = u
+            profile = Profile()
+            profile.user = u
             image_url = 'http://lorempixel.com/60/60/people'
             image_url = urllib.quote(image_url.encode('utf8'), ':/')
             content = urllib.urlretrieve(image_url)
-            up.avatar.save('%s.png' % u.username, File(open(content[0])), save=True)
-            up.save()
+            profile.avatar.save('%s.png' % u.username, File(open(content[0])), save=True)
+            profile.save()
 
             self.stdout.write('created user %s' % u.username)

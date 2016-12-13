@@ -41,7 +41,7 @@
 }
 
 .askbutorin-not-authorised{
-    visibility: hidden;
+
     padding-top: 27px;
     right: 170px;
     position: absolute;
@@ -64,6 +64,8 @@
 }
 
 .avatar{
+    height: 60px;
+    width: 60px;
     border-radius: 30%;
 }
 
@@ -126,7 +128,6 @@
 
 .askbutorin-error-messages{
         color: red;
-        margin-left: 15px;
 }
 
 .askbutorin-wrong_password-msg{
@@ -157,7 +158,7 @@
     display: none;
 }
 
-.btn{
+.like_btn{
     height: 30px;
     width: 30px;
 }

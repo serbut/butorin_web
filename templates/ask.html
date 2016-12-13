@@ -1,36 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-            <div class="askbutorin-newquestion">
-                <form action="">
-                    <h2>Новый вопрос</h2>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <span>Название вопроса</span>
-                        </div>
-                        <div class="col-md-8">
-                            <span><input class="askbutorin-newquestion-title" maxlength="50" placeholder="Введите название вопроса"></span>
-                        </div>
+    <div class="askbutorin-newquestion">
+        <form class="form-horizontal" method="post" action="">
+            {% csrf_token %}
+            <h2>Новый вопрос</h2>
+            {%for field in form  %}
+                <div class="form-group {% if field.errors %} has-error {% endif %} }">
+                    <label for="login" class="col-md-3 control-label">{{ field.label }}</label>
+                    <div class="col-md-8">
+                        {{ field }}
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                                <p class="askbutorin-error-messages">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <span>Теги</span>
-                        </div>
-                        <div class="col-md-8">
-                            <span><input class="askbutorin-newquestion-tags" maxlength="50" placeholder="Введите теги"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <span>Текст вопроса</span>
-                        </div>
-                        <div class="col-md-8">
-                            <span><textarea class="askbutorin-newquestion-text" maxlength="200" rows="6" placeholder="Введите текст вопроса"></textarea></span>
-                        </div>
-                    </div>
-                    <p><input class="askbutorin-submit-button" type="submit" value="Задать вопрос"></p>
-                </form>
+                </div>
+            {% endfor %}
+             <div class="form-group">
+                <div class="col-md-offset-3 col-md-2">
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </div>
             </div>
-        </div>
+        </form>
+    </div>
+    </div>
 
 {% endblock %}

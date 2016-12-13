@@ -15,12 +15,20 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="askbutorin-avatar-block">
-                            <img class="avatar" src="/images/avatars/{{ item.author }}.png"/>
+                            {% if item.author.profile.avatar %}
+                                <img class="avatar" src="{{ item.author.profile.avatar.url }}"/>
+                            {% else %}
+                                <img class="avatar" src="images/avatars/default.png"/>
+                            {% endif %}
                             <p> {{ item.author }} </p>
                             <div class="btn-group" role="group" aria-label="...">
-                              <span><button type="button" class="btn btn-default"><img class="like-button" src="/images/like.png"></button></span>
-                                <span>{{ item.rating }}</span>
-                              <span><button type="button" class="btn btn-default"><img class="like-button" src="/images/dislike.png"></button></span>
+                              <span><button type="button" class="btn like_btn btn-default"><img class="like-button" src="/images/like.png"></button></span>
+                                {% if item.rating %}
+                                    <span>{{ item.rating }}</span>
+                                {% else %}
+                                    <span>0</span>
+                                {% endif %}
+                              <span><button type="button" class="btn like_btn btn-default"><img class="like-button" src="/images/dislike.png"></button></span>
                             </div>
 
                         </div>

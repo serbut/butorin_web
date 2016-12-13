@@ -4,6 +4,9 @@ from ask_app import models
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('title',)
 
+class AnswerAdmin(admin.ModelAdmin):
+    list_display = ('question',)
+
 class TagAdmin(admin.ModelAdmin):
     list_display = ('title',)
 class ProfileAdmin(admin.ModelAdmin):
@@ -12,6 +15,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Question, QuestionAdmin)
+admin.site.register(models.Answer, AnswerAdmin)
 admin.site.register(models.Tag, TagAdmin)
 admin.site.register(models.Profile, ProfileAdmin)
 

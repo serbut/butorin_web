@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-import datetime
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Count, Sum
+
+
+class AnswerManager(models.Manager):
+    def ans_list(self, id):
+        answers = self.filter(question_id=id).annotate(rating=Sum('answerlike__value'))
+        return answers
 
 
 class QuestionManager(models.Manager):
@@ -24,19 +30,12 @@ class QuestionManager(models.Manager):
 
     def single(self, id):
         q = self.quest_likes().get(pk=id)
-        q.answers = Answer.objects.filter(question_id=id)
-        q.answers.rating = q.answers.annotate(rating=Sum('answerlike__value'))
+        q.answers = Answer.objects.ans_list(id)
         return q
 
 
-class AnswerManager(models.Manager):
-    def ans_likes(self):
-        a = self.annotate(rating=Sum('answerlike__value'))
-        return a
-
-
 class Tag(models.Model):
-    title = models.CharField(max_length=50, verbose_name=u'Тэг')
+    title = models.CharField(max_length=50, unique=True, verbose_name=u'Тэг')
 
     class Meta:
         verbose_name = u'Тэг'
@@ -50,7 +49,7 @@ class Question(models.Model):
     title = models.CharField(max_length=255, verbose_name=u'Заголовок')
     text = models.TextField(verbose_name=u'Текст')
     author = models.ForeignKey(User, verbose_name=u'Автор')
-    date = models.DateTimeField(default=datetime.datetime.now, verbose_name=u'Дата и время')
+    date = models.DateTimeField(default=datetime.now, verbose_name=u'Дата и время')
     tags = models.ManyToManyField(Tag, verbose_name=u'Тэги')
     objects = QuestionManager()
 
@@ -65,9 +64,10 @@ class Question(models.Model):
 class Answer(models.Model):
     text = models.TextField(verbose_name=u'Текст')
     question = models.ForeignKey(Question, verbose_name=u'Вопрос')
-    user = models.ForeignKey(User, verbose_name=u'Пользователь')
-    date = models.DateTimeField(default=datetime.datetime.now, verbose_name=u'Дата и время')
-    correct = models.BooleanField(default=False)
+    author = models.ForeignKey(User, verbose_name=u'Пользователь')
+    date = models.DateTimeField(default=datetime.now, verbose_name=u'Дата и время')
+    correct = models.BooleanField(default=False, verbose_name=u'Правильный ответ')
+    objects = AnswerManager()
 
     class Meta:
         verbose_name = u'Ответ'
@@ -79,7 +79,7 @@ class Answer(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, verbose_name=u'Пользователь')
-    avatar = models.ImageField(upload_to='static/images/avatars', verbose_name=u'Аватар')
+    avatar = models.ImageField(upload_to='images/avatars', verbose_name=u'Аватар')
 
     class Meta:
         verbose_name = u'Профиль'
@@ -90,13 +90,29 @@ class Profile(models.Model):
 
 
 class QuestionLike(models.Model):
-    question = models.ForeignKey(Question)
-    author = models.ForeignKey(User)
-    value = models.SmallIntegerField(default=0)
+    question = models.ForeignKey(Question, verbose_name=u'Вопрос')
+    author = models.ForeignKey(User, verbose_name=u'Автор')
+    value = models.SmallIntegerField(default=0, verbose_name=u'Значение')
+
+    class Meta:
+        verbose_name = u'Лайк вопроса'
+        verbose_name_plural = u'Лайки вопросов'
+        unique_together = ('author', 'question',)
+
+    def __unicode__(self):
+        return self.value
 
 
 class AnswerLike(models.Model):
-    answer = models.ForeignKey(Answer)
-    author = models.ForeignKey(User)
-    value = models.SmallIntegerField(default=0)
+    answer = models.ForeignKey(Answer, verbose_name=u'Ответ')
+    author = models.ForeignKey(User, verbose_name=u'Автор')
+    value = models.SmallIntegerField(default=0, verbose_name=u'Значение')
+
+    class Meta:
+        verbose_name = u'Лайк ответа'
+        verbose_name_plural = u'Лайки ответов'
+        unique_together = ('author', 'answer',)
+
+    def __unicode__(self):
+        return self.value
 

@@ -1,60 +1,81 @@
 {% extends "base.html" %}
 
 {% block content %}
-                <div class="askbutorin-main-question">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="askbutorin-avatar-block">
-                                <img class="avatar" src="/images/avatars/{{ question.author }}.png"/>
-                                <p> {{ question.author }} </p>
-                                <div class="btn-group" role="group" aria-label="...">
-                                 <span><button type="button" class="btn btn-default"><img class="like-button" src="/images/like.png"></button></span>
-                                     <span>{{ question.rating }}</span>
-                                 <span><button type="button" class="btn btn-default"><img class="like-button" src="/images/dislike.png"></button></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <h3>{{ question.title }}</h3>
-                            <p>{{ question.text }}</p>
-                            <span>Теги:</span>
-                            {%for tag in question.tags.all %}
-                                <a href="{% url 'tag' tag %}">{{ tag }}</a>
-                            {% endfor %}
-                            <p> {{ question.date }} </p>
-                        </div>
+    <div class="askbutorin-main-question">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="askbutorin-avatar-block">
+                    {% if question.author.profile.avatar %}
+                        <img class="avatar" src="{{ question.author.profile.avatar.url }}"/>
+                    {% else %}
+                        <img class="avatar" src="images/avatars/default.png"/>
+                    {% endif %}
+                    <p> {{ question.author }} </p>
+                    <div class="btn-group" role="group" aria-label="...">
+                        <span><button type="button" class="btn like_btn btn-default"><img class="like-button" src="/images/like.png"></button></span>
+                        {% if question.rating %}
+                            <span>{{ question.rating }}</span>
+                        {% else %}
+                            <span>0</span>
+                        {% endif %}
+                        <span><button type="button" class="btn like_btn btn-default"><img class="like-button" src="/images/dislike.png"></button></span>
                     </div>
                 </div>
-                    <div class="answers">
-                        {% for item in answers %}
-                        <div class="askbutorin-answer">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="askbutorin-avatar-block">
-                                        <img class="avatar" src="/images/avatars/{{ item.user }}.png"/>
-                                        <p> {{ item.user }} </p>
-                                        <div class="btn-group" role="group" aria-label="...">
-                                          <span><button type="button" class="btn btn-default"><img class="like-button" src="/images/like.png"></button></span>
-                                                <span>{{ item.rating }}</span>
-                                            <span><button type="button" class="btn btn-default"><img class="like-button" src="/images/dislike.png"></button></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-9">
-                                    <p>{{ item.text }}</p>
-                                     <p><input type="checkbox" name="correct" value=""> Верный ответ</p>
-
-                                    <p> {{ item.date }} </p>
-                                </div>
+            </div>
+            <div class="col-md-9">
+                <h3>{{ question.title }}</h3>
+                <p>{{ question.text }}</p>
+                <span>Теги:</span>
+                {%for tag in question.tags.all %}
+                    <a href="{% url 'tag' tag %}">{{ tag }}</a>
+                {% endfor %}
+                <p> {{ question.date }} </p>
+            </div>
+        </div>
+    </div>
+    <div class="answers">
+        {% for item in answers %}
+            <div class="askbutorin-answer">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="askbutorin-avatar-block">
+                            {% if item.author.profile.avatar %}
+                                <img class="avatar" src="{{ item.author.profile.avatar.url }}"/>
+                            {% else %}
+                                <img class="avatar" src="images/avatars/default.png"/>
+                            {% endif %}
+                            <p> {{ item.author }} </p>
+                            <div class="btn-group" role="group" aria-label="...">
+                                <span><button type="button" class="btn like_btn btn-default"><img class="like-button" src="/images/like.png"></button></span>
+                                {% if item.rating %}
+                                    <span>{{ item.rating }}</span>
+                                {% else %}
+                                    <span>0</span>
+                                {% endif %}
+                                <span><button type="button" class="btn like_btn btn-default"><img class="like-button" src="/images/dislike.png"></button></span>
                             </div>
                         </div>
-
-                        {% endfor %}
-                        {%include 'paginator.html' with objects=answers %}
                     </div>
-                <form action="">
-                  <p><textarea maxlength="200" class="askbutorin-newanswer" name="comment" placeholder="Введите ваш ответ здесь"></textarea></p>
-                  <p><input type="submit" value="Ответить"></p>
-                 </form>
+                    <div class="col-md-9">
+                        <p>{{ item.text }}</p>
+                        <p><input type="checkbox" name="correct" value="{{ item.correct }}"> Верный ответ</p>
+                        <p> {{ item.date }} </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {%include 'paginator.html' with objects=answers %}
+    </div>
+
+    {% if user.is_authenticated %}
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <div> {{ form.text }} </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Ответить</button>
+            </div>
+        </form>
+    {% endif %}
 {%  endblock %}

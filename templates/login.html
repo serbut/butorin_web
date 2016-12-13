@@ -1,29 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-             <div class="askbutorin-login">
-                <form action="">
-                    <h2>Вход</h2>
-                    <div class="row">
-                        <p class="askbutorin-wrong_login-msg askbutorin-error-messages">Пользователь с таким логином не найден</p>
-                        <div class="col-md-3">
-                            <span>Логин</span>
-                        </div>
-                        <div class="col-md-9">
-                            <span><input class="askbutorin-login-field" maxlength="50" size="20" placeholder="Введите логин"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <p class="askbutorin-wrong_password-msg askbutorin-error-messages">Неправильный пароль</p>
-                        <div class="col-md-3">
-                            <span>Пароль</span>
-                        </div>
-                        <div class="col-md-9">
-                            <span><input class="askbutorin-password-field" type="password" maxlength="50" size="20" placeholder="Введите пароль"></span>
-                        </div>
-                    </div>
-                    <p><input class="askbutorin-submit-button" type="submit" value="Войти"></p>
-                </form>
-                 <a href="">Регистрация</a>
+    <div class="askbutorin-login">
+       {% for error in form.non_field_errors %}
+           <div class="alert alert-danger" role="alert">
+               <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+               {{ error }}
+           </div>
+       {% endfor %}
+        <form class="form-horizontal" method="post" action="">
+            {% csrf_token %}
+            <h2>Вход</h2>
+            <div class="form-group">
+                <label for="username" class="col-md-2 control-label">{{ form.username.label }}</label>
+                <div class="col-md-5"> {{ form.username }} </div>
             </div>
+            <div class="form-group">
+                <label for="password" class="col-md-2 control-label">{{ form.password.label }}</label>
+                <div class="col-md-5"> {{ form.password }} </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-2">
+                    <button type="submit" class="btn btn-primary">Войти</button>
+                </div>
+            </div>
+        </form>
+        <a href="{% url 'signup' %}">Регистрация</a>
+    </div>
 {% endblock %}
