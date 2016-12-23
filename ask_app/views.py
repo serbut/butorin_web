@@ -1,23 +1,29 @@
+# -*- coding: utf-8 -*-
+
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from ask_app.models import Question, Tag
+from ask_app.models import Question, Tag, QuestionLike, AnswerLike, Answer
 from django.forms.models import model_to_dict
 from ask_app.forms import SignupForm, NewQuestionForm, LoginForm, NewAnswerForm, ProfileForm, ChangePasswordForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from django.core.urlresolvers import reverse
 
 
 def paginate(objects, request):
     page = request.GET.get('page')
     p = Paginator(objects, 10)
+
     try:
         result = p.page(page)
     except PageNotAnInteger:
         result = p.page(1)
     except EmptyPage:
         result = p.page(1)
+
+    result.from_left = result.number - 3
+    result.from_right = result.number + 3
     return result
 
 
@@ -153,3 +159,53 @@ def change_password(request):
         'form': form,
         'user': request.user,
     })
+
+
+@login_required
+def like(request):
+    if request.method == 'POST':
+        try:
+            object_id = request.POST.get('id')
+            object_type = request.POST.get('type')
+            if object_id and object_type:
+                if object_type == "question-like":
+                    q = Question.objects.get(pk=object_id)
+                    QuestionLike.objects.add(request.user, q, 1)
+                elif object_type == "question-dislike":
+                    q = Question.objects.get(pk=object_id)
+                    QuestionLike.objects.add(request.user, q, -1)
+                elif object_type == "answer-like":
+                    a = Answer.objects.get(pk=object_id)
+                    AnswerLike.objects.add(request.user, a, 1)
+                elif object_type == "answer-dislike":
+                    a = Answer.objects.get(pk=object_id)
+                    AnswerLike.objects.add(request.user, a, -1)
+                else:
+                    return JsonResponse({"status": "Неверный тип"})
+                return JsonResponse({"status": "ok"})
+            else:
+                return JsonResponse({"status": "Не указан тип или id"})
+        except Question.DoesNotExist:
+            return JsonResponse({"status": "Нет такого вопроса"})
+        except Answer.DoesNotExist:
+            return JsonResponse({"status": "Нет такого ответа"})
+        except QuestionLike.SelfLike as self_like_error:
+            return JsonResponse({"status": self_like_error.message})
+        except AnswerLike.SelfLike as self_like_error:
+            return JsonResponse({"status": self_like_error.message})
+    return JsonResponse({"status": "Ошибка"})
+
+
+@login_required
+def correct_answer(request):
+    if request.method == 'POST':
+        try:
+            object_id = request.POST.get('id')
+            ans = Answer.objects.get(pk=object_id)
+            ans.set_correct(request.user)
+            return JsonResponse({"status": "ok"})
+        except Answer.DoesNotExist:
+            return JsonResponse({"status": "Нет такого ответа"})
+        except Exception as not_author_error:
+            return JsonResponse({"status": not_author_error.message})
+    return JsonResponse({"status": "Ошибка"})

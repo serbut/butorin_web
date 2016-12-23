@@ -9,14 +9,13 @@ from django.db.models import Count, Sum
 
 class AnswerManager(models.Manager):
     def ans_list(self, id):
-        answers = self.filter(question_id=id).annotate(rating=Sum('answerlike__value'))
+        answers = self.filter(question_id=id)
         return answers
 
 
 class QuestionManager(models.Manager):
     def quest_likes(self):
         q = self.annotate(answers=Count('answer__id', distinct=True))
-        q = q.annotate(rating=Sum('questionlike__value'))
         return q
 
     def best(self):
@@ -51,7 +50,15 @@ class Question(models.Model):
     author = models.ForeignKey(User, verbose_name=u'Автор')
     date = models.DateTimeField(default=datetime.now, verbose_name=u'Дата и время')
     tags = models.ManyToManyField(Tag, verbose_name=u'Тэги')
+    rating = models.IntegerField(default=0)
     objects = QuestionManager()
+
+    def get_correct(self):
+        try:
+            a = Answer.objects.get(question=self, correct=True)
+        except:
+            a = None
+        return a
 
     class Meta:
         verbose_name = u'Вопрос'
@@ -67,7 +74,23 @@ class Answer(models.Model):
     author = models.ForeignKey(User, verbose_name=u'Пользователь')
     date = models.DateTimeField(default=datetime.now, verbose_name=u'Дата и время')
     correct = models.BooleanField(default=False, verbose_name=u'Правильный ответ')
+    rating = models.IntegerField(default=0)
     objects = AnswerManager()
+
+    def set_correct(self, user=None):
+        q = self.question
+
+        if q.author.id != user.id:
+            raise Exception(u'Только автор вопроса может отметить ответ как правильный')
+
+        prev_correct = q.get_correct()
+
+        if prev_correct is not None:
+            prev_correct.correct = False
+            prev_correct.save()
+
+        self.correct = True
+        self.save()
 
     class Meta:
         verbose_name = u'Ответ'
@@ -89,10 +112,36 @@ class Profile(models.Model):
         return str(self.user_id)
 
 
+class QuestionLikeManager(models.Manager):
+    def has_question(self, question):
+        return self.filter(question=question)
+
+    def sum_for_question(self, question):
+        return self.has_question(question).aggregate(sum=Sum('value'))['sum']
+
+    def add(self, author, question, value):
+        if author.id == question.author.id:
+            raise QuestionLike.SelfLike
+
+        self.update_or_create(
+            author=author,
+            question=question,
+            defaults={'value': value}
+        )
+        question.rating = self.sum_for_question(question)
+        question.save()
+
+
 class QuestionLike(models.Model):
     question = models.ForeignKey(Question, verbose_name=u'Вопрос')
     author = models.ForeignKey(User, verbose_name=u'Автор')
     value = models.SmallIntegerField(default=0, verbose_name=u'Значение')
+
+    objects = QuestionLikeManager()
+
+    class SelfLike(Exception):
+        def __init__(self):
+            super(QuestionLike.SelfLike, self).__init__(u'Вы не можете голосовать за свой вопрос')
 
     class Meta:
         verbose_name = u'Лайк вопроса'
@@ -103,10 +152,36 @@ class QuestionLike(models.Model):
         return self.value
 
 
+class AnswerLikeManager(models.Manager):
+    def has_answer(self, answer):
+        return self.filter(answer=answer)
+
+    def sum_for_answer(self, answer):
+        return self.has_answer(answer).aggregate(sum=Sum('value'))['sum']
+
+    def add(self, author, answer, value):
+        if author.id == answer.author.id:
+            raise AnswerLike.SelfLike
+
+        self.update_or_create(
+            author=author,
+            answer=answer,
+            defaults={'value': value}
+        )
+        answer.rating = self.sum_for_answer(answer)
+        answer.save()
+
+
 class AnswerLike(models.Model):
     answer = models.ForeignKey(Answer, verbose_name=u'Ответ')
     author = models.ForeignKey(User, verbose_name=u'Автор')
     value = models.SmallIntegerField(default=0, verbose_name=u'Значение')
+
+    objects = AnswerLikeManager()
+
+    class SelfLike(Exception):
+        def __init__(self):
+            super(AnswerLike.SelfLike, self).__init__(u'Вы не можете голосовать за свой ответ')
 
     class Meta:
         verbose_name = u'Лайк ответа'

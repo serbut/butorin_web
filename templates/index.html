@@ -15,6 +15,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="askbutorin-avatar-block">
+                            {% csrf_token %}
                             {% if item.author.profile.avatar %}
                                 <img class="avatar" src="{{ item.author.profile.avatar.url }}"/>
                             {% else %}
@@ -22,13 +23,9 @@
                             {% endif %}
                             <p> {{ item.author }} </p>
                             <div class="btn-group" role="group" aria-label="...">
-                              <span><button type="button" class="btn like_btn btn-default"><img class="like-button" src="/images/like.png"></button></span>
-                                {% if item.rating %}
-                                    <span>{{ item.rating }}</span>
-                                {% else %}
-                                    <span>0</span>
-                                {% endif %}
-                              <span><button type="button" class="btn like_btn btn-default"><img class="like-button" src="/images/dislike.png"></button></span>
+                              <a href="" class="js-like" data-id="{{ item.id }}" data-type="question-like"><button type="button" class="btn like_btn btn-default" {%if not request.user.is_authenticated %}disabled="disabled"{% endif %}><img class="like-button" src="/images/like.png"></button></a>
+                                <span>{{ item.rating }}</span>
+                              <a href="" class="js-like" data-id="{{ item.id }}" data-type="question-dislike"><button type="button" class="btn like_btn btn-default" {%if not request.user.is_authenticated %}disabled="disabled"{% endif %}><img class="like-button" src="/images/dislike.png"></button></a>
                             </div>
 
                         </div>
